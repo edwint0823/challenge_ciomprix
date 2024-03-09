@@ -12,6 +12,12 @@ const CreateUserCheck = [
     body('is_student').not().isEmpty().withMessage(validationMessages.userCreate.isStudentRequired).isBoolean().withMessage(validationMessages.userCreate.isStudentValid),
 ]
 
+const LoginUserCheck = [
+    body('email').not().isEmpty().withMessage(validationMessages.loginUser.emailRequired).trim().escape().isEmail().withMessage(validationMessages.loginUser.emailValid),
+    body('password').not().isEmpty().withMessage(validationMessages.loginUser.passwordRequired).trim().escape().isLength({min: 6}).withMessage(validationMessages.loginUser.passwordLength),
+]
+
 module.exports = {
-    CreateUserCheck
+    CreateUserCheck,
+    LoginUserCheck
 }

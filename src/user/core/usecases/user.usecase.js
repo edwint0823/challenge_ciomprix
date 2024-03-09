@@ -1,7 +1,9 @@
 const bcryptjs = require('bcryptjs')
 const repository = require('../../adapters/database/user.repository')
-const {HttpStatus, successMessages} = require("../../../../core/constants");
-const {throwError} = require("../../../../core/utils")
+const {HttpStatus, successMessages, errorMessages, tokenTImeExpiration} = require("../../../../core/constants");
+const {throwError, generateJWT} = require("../../../../core/utils")
+const createHttpError = require("http-errors");
+
 const createUser = async (userData) => {
     try {
         const salt = bcryptjs.genSaltSync();
@@ -23,8 +25,26 @@ const createUser = async (userData) => {
     } catch (e) {
         throw throwError(e, HttpStatus.INTERNAL_SERVER_ERROR, 'Error interno del servidor');
     }
+}
 
+const verifyUser = async (loginData) => {
+    try {
+        const user = await repository.findUserByEmail(loginData.email)
+        if (user === null) {
+            throw createHttpError(HttpStatus.BAD_REQUEST, errorMessages.invalidUser)
+        }
+        const validPassword = bcryptjs.compareSync(loginData.password, user.password)
+        if (!validPassword) {
+            throw createHttpError(HttpStatus.BAD_REQUEST, errorMessages.invalidUser)
+        }
+        const {password, ...userToEncrypt} = user
+        const token = await generateJWT(userToEncrypt, tokenTImeExpiration)
+        return {token}
+    } catch (e) {
+        throw throwError(e, e.statusCode || HttpStatus.INTERNAL_SERVER_ERROR, 'Error interno del servidor');
+    }
 }
 module.exports = {
-    createUser
+    createUser,
+    verifyUser
 }

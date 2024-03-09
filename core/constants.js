@@ -49,10 +49,12 @@ const HttpStatus = {
     HTTP_VERSION_NOT_SUPPORTED: 505
 }
 const successMessages = {
-    userCreated: 'Usuario creado exitosamente'
+    userCreated: 'Usuario creado exitosamente',
+
 }
 const errorMessages = {
-    validationErrors: 'errores de validación'
+    validationErrors: 'errores de validación',
+    invalidUser: 'Correo electrónico o contraseña incorrecta por favor validar'
 }
 const validationMessages = {
     userCreate: {
@@ -74,11 +76,19 @@ const validationMessages = {
         isAdminRequired: 'is_admin es requerido',
         isStudentValid: 'is_student debe ser un booleano',
         isStudentRequired: 'is_student es requerido'
+    },
+    loginUser: {
+        emailValid: 'El correo electrónico no es válido',
+        emailRequired: 'El correo electrónico es requerido',
+        passwordLength: 'La contraseña debe tener al menos 6 caracteres',
+        passwordRequired: 'La contraseña es requerida',
     }
 }
+const tokenTImeExpiration = '5m'
 module.exports = {
     HttpStatus,
     successMessages,
     validationMessages,
-    errorMessages
+    errorMessages,
+    tokenTImeExpiration
 }
