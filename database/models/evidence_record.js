@@ -3,12 +3,12 @@ const {
     Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    class Evidence_Records extends Model {
+    class Evidence_Record extends Model {
         static associate(models) {
         }
     }
 
-    Evidence_Records.init({
+    Evidence_Record.init({
         file_name: DataTypes.STRING,
         size: DataTypes.INTEGER,
         format: DataTypes.STRING(5),
@@ -18,8 +18,8 @@ module.exports = (sequelize, DataTypes) => {
         updatedAt: DataTypes.DATE
     }, {
         sequelize,
-        modelName: 'Evidence_Records',
+        modelName: 'Evidence_Record',
         tableName: 'evidence_records',
     });
-    return Evidence_Records;
+    return Evidence_Record;
 };
