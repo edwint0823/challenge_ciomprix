@@ -48,8 +48,17 @@ const evidenceListOrdered = async () => {
     }
 }
 
+const percentEvidenceByFormat = async () => {
+    try {
+        return await evidenceRecordRepository.percentEvidenceByFormat()
+    } catch (e) {
+        throw throwError(e, e.statusCode || HttpStatus.INTERNAL_SERVER_ERROR, 'Error interno del servidor');
+    }
+}
+
 module.exports = {
     uploadEvidence,
     evidenceList,
-    evidenceListOrdered
+    evidenceListOrdered,
+    percentEvidenceByFormat
 }

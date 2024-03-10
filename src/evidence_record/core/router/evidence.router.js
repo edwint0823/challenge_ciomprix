@@ -8,5 +8,6 @@ const upload = require('../../../../core/uploadHandler')
 router.post('/upload', [auth, isStudent, upload.single('file')], evidenceController.uploadEvidence)
 router.get('/list', auth, evidenceController.evidenceList)
 router.get('/list-ordered', [auth, isAdmin], evidenceController.evidenceListOrdered)
+router.get('/percent-by-format', [auth, isAdmin], evidenceController.percentEvidenceByFormat)
 
 module.exports = router

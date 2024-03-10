@@ -32,8 +32,15 @@ const evidenceListOrdered = (req, res, next) => {
         res.send(r)
     }).catch((err) => next(err))
 }
+
+const percentEvidenceByFormat = (req, res, next) => {
+    useCase.percentEvidenceByFormat().then((r) => {
+        res.send(r)
+    }).catch((err) => next(err))
+}
 module.exports = {
     uploadEvidence,
     evidenceList,
-    evidenceListOrdered
+    evidenceListOrdered,
+    percentEvidenceByFormat
 }

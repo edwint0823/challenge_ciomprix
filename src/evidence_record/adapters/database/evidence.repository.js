@@ -1,4 +1,4 @@
-const {Evidence_Record, User} = require('../../../../database/models')
+const {Evidence_Record, User, sequelize} = require('../../../../database/models')
 const {Op} = require("sequelize");
 const getEvidencesByUserIdAndSubjectId = async (userId, subjectId) => {
     return Evidence_Record.findAll({
@@ -40,9 +40,19 @@ const getEvidenceListOrdered = async () => {
         order: [[User, 'email', 'ASC'], ['createdAt', 'ASC']]
     })
 }
+const percentEvidenceByFormat = async () => {
+    return await sequelize.query(`
+        SELECT format,
+               COUNT(*)                                                           AS total,
+               ROUND(COUNT(*) * 100 / (SELECT COUNT(*) FROM evidence_records), 2) AS percent
+        FROM evidence_records
+        GROUP BY format;
+    `, {type: sequelize.QueryTypes.SELECT});
+}
 module.exports = {
     getEvidencesByUserIdAndSubjectId,
     create,
     getEvidenceList,
-    getEvidenceListOrdered
+    getEvidenceListOrdered,
+    percentEvidenceByFormat
 }
