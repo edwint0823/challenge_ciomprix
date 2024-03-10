@@ -50,11 +50,19 @@ const HttpStatus = {
 }
 const successMessages = {
     userCreated: 'Usuario creado exitosamente',
-
+    studentLinked: 'El estudiante ha sido registrado en la(s) asignatura(s) proporcionadas',
+    subjectCreated: 'La asignatura se creado correctamente'
 }
 const errorMessages = {
     validationErrors: 'errores de validación',
-    invalidUser: 'Correo electrónico o contraseña incorrecta por favor validar'
+    invalidUser: 'Correo electrónico o contraseña incorrecta por favor validar',
+    permissionDenied: 'No tiene permisos para realizar esta acción',
+    tokenRequired: 'Token requerido',
+    studentNotFound: 'El estudiante no se ha encontrado',
+    isNotStudent: 'El usuario no es un estudiante',
+    studentMaxSubjectsLinked: 'El estudiante supera el limite máximo de asignaturas ',
+    studentAlreadyLinked: 'El estudiante ya ha sido matriculado en algunas de las asignaturas proporcionadas',
+    subjectsNotFound: 'Alguna(s) asignaturas no existen'
 }
 const validationMessages = {
     userCreate: {
@@ -82,6 +90,19 @@ const validationMessages = {
         emailRequired: 'El correo electrónico es requerido',
         passwordLength: 'La contraseña debe tener al menos 6 caracteres',
         passwordRequired: 'La contraseña es requerida',
+    },
+    linkStudent: {
+        studentIdRequired: 'El id del estudiante es requerido',
+        studentIdValid: 'El id del estudiante no es valido',
+        subjectIdRequired: 'El(los) id(s) de la(s) asignatura(s) es requerida',
+        subjectIdIsArray: 'El(los) id(s) de la(s) asignatura(s) debe ser un array',
+        subjectIdOnlyNumbers: 'El listado de asignaturas debe contener solo números',
+        subjectIdMinLength: 'El listado de asignaturas debe contener al menos un número',
+        subjectIdMaxLength: 'El listado de asignaturas debe contener 5 asignatura como máximo',
+    },
+    createSubject: {
+        nameRequired: 'El nombre de la asignatura es requerido',
+        nameLength: 'El nombre de la asignatura debe tener al menos 2 caracteres'
     }
 }
 const tokenTImeExpiration = '5m'
