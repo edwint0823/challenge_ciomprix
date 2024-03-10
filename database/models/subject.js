@@ -5,7 +5,10 @@ const {
 module.exports = (sequelize, DataTypes) => {
     class Subject extends Model {
         static associate(models) {
-            Subject.belongsToMany(models.User_Subject, {through: 'users_subjects', foreignKey: 'subject_id'})
+            Subject.belongsToMany(models.User, {
+                through: models.User_Subject,
+                foreignKey: 'subject_id'
+            });
             Subject.belongsToMany(models.Evidence_Record, {through: 'evidence_records', foreignKey: 'subject_id'})
         }
     }

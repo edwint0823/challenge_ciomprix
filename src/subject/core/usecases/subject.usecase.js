@@ -13,7 +13,7 @@ const linkStudent = async (data) => {
         if (!student.is_student) {
             throw createHttpError(HttpStatus.BAD_REQUEST, errorMessages.isNotStudent)
         }
-        
+
         const subjects = await subjectRepository.getSubjectsByIds(data.subjects_id)
 
         if (subjects.length !== data.subjects_id.length) {
@@ -50,7 +50,22 @@ const createSubject = async (data) => {
         throw throwError(e, e.statusCode || HttpStatus.INTERNAL_SERVER_ERROR, 'Error interno del servidor');
     }
 }
+
+const subjectList = async (loggedUser) => {
+    try {
+        let whereOptions = {
+            id: loggedUser.id
+        }
+        if (loggedUser.is_admin) {
+            whereOptions = {}
+        }
+        return subjectRepository.getSubjectList(whereOptions)
+    } catch (e) {
+        throw throwError(e, e.statusCode || HttpStatus.INTERNAL_SERVER_ERROR, 'Error interno del servidor');
+    }
+}
 module.exports = {
     linkStudent,
-    createSubject
+    createSubject,
+    subjectList
 }

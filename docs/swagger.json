@@ -328,6 +328,31 @@
         }
       }
     },
+    "/api/subjects/list": {
+      "get": {
+        "tags": [
+          "subjects"
+        ],
+        "summary": "Listado de las asignaturas",
+        "description": "Permite obtener el listado de asignaturas matriculas en caso de ser estudiante.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Listado de asignaturas."
+          },
+          "401": {
+            "description": "Error de autenticación , verificar token."
+          },
+          "500": {
+            "description": "Error interno del servidor."
+          }
+        }
+      }
+    },
     "/api/subjects/create": {
       "post": {
         "tags": [

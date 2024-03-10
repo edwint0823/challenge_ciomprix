@@ -32,7 +32,13 @@ const createSubject = async (req, res, next) => {
     }).catch((err) => next(err))
 }
 
+const subjectList = async (req, res, next) => {
+    useCase.subjectList(req.user).then((r) => {
+        res.send(r)
+    }).catch((err) => next(err))
+}
 module.exports = {
     linkStudent,
-    createSubject
+    createSubject,
+    subjectList
 }
