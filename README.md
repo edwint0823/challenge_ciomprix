@@ -12,6 +12,11 @@ Para un correcto funcionamiento debe contar con las siguientes tecnologías inst
 | Node.js       | **Node 18+**       | [Node.js](https://nodejs.org/en/download/current)          |
 | npm           | **Npm 8.6+**       |                                                            |
 
+**NOTA:**
+
+Además de las anteriores tecnologías también debe poseer las credenciales de administrador para la base de datos asi como la base de datos creada con el nombre que desea en las variables de entorno correspondiente 
+
+
 ## Variables de entorno
 
 Para el correcto funcionamiento de la aplicación debe agregar las variables de entorno en el archivo **.env**
