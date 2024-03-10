@@ -26,7 +26,39 @@ const uploadEvidence = async (subject_id, file, user) => {
         throw throwError(e, e.statusCode || HttpStatus.INTERNAL_SERVER_ERROR, 'Error interno del servidor');
     }
 }
+const evidenceList = async (loggedUser) => {
+    try {
+        let whereOptions = {
+            id: loggedUser.id
+        }
+        if (loggedUser.is_admin) {
+            whereOptions = {}
+        }
+        return evidenceRecordRepository.getEvidenceList(whereOptions)
+    } catch (e) {
+        throw throwError(e, e.statusCode || HttpStatus.INTERNAL_SERVER_ERROR, 'Error interno del servidor');
+    }
+}
+
+const evidenceListOrdered = async () => {
+    try {
+        return await evidenceRecordRepository.getEvidenceListOrdered()
+    } catch (e) {
+        throw throwError(e, e.statusCode || HttpStatus.INTERNAL_SERVER_ERROR, 'Error interno del servidor');
+    }
+}
+
+const percentEvidenceByFormat = async () => {
+    try {
+        return await evidenceRecordRepository.percentEvidenceByFormat()
+    } catch (e) {
+        throw throwError(e, e.statusCode || HttpStatus.INTERNAL_SERVER_ERROR, 'Error interno del servidor');
+    }
+}
 
 module.exports = {
-    uploadEvidence
+    uploadEvidence,
+    evidenceList,
+    evidenceListOrdered,
+    percentEvidenceByFormat
 }

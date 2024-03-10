@@ -5,6 +5,12 @@ const {
 module.exports = (sequelize, DataTypes) => {
     class Evidence_Record extends Model {
         static associate(models) {
+            Evidence_Record.belongsTo(models.User, {
+                foreignKey: 'user_id'
+            });
+            Evidence_Record.belongsTo(models.Subject, {
+                foreignKey: 'subject_id'
+            });
         }
     }
 

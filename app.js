@@ -1,4 +1,4 @@
-require('./database.js')
+require('./config/database.js')
 const fs = require("fs");
 const path = require('path');
 const dotEnvPath = path.resolve('.env')

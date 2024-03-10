@@ -2,10 +2,10 @@ const path = require('path')
 const dotEnvPath = path.resolve('.env')
 require('dotenv').config({path: dotEnvPath})
 
-const {sequelize} = require('./database/models')
+const {sequelize} = require('../database/models')
 
 const env = process.env.NODE_ENV || 'development'
-const database_config = require('./database/config')[env]
+const database_config = require('../database/config')[env]
 const dayjs = require('dayjs')
 require('dayjs/locale/es-mx')
 dayjs.locale('es-mx')

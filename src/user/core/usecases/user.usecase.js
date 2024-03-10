@@ -86,9 +86,28 @@ const deleteUser = async (userId, loggedUser) => {
         throw throwError(e, e.statusCode || HttpStatus.INTERNAL_SERVER_ERROR, 'Error interno del servidor');
     }
 }
+
+const studentList = async () => {
+    try {
+        return await repository.getStudentList()
+    } catch (e) {
+        throw throwError(e, e.statusCode || HttpStatus.INTERNAL_SERVER_ERROR, 'Error interno del servidor');
+    }
+}
+
+const studentTopEvidenceList = async () => {
+    try {
+        return await repository.getStudentTopEvidenceList()
+    } catch (e) {
+        throw throwError(e, e.statusCode || HttpStatus.INTERNAL_SERVER_ERROR, 'Error interno del servidor');
+    }
+}
+
 module.exports = {
     createUser,
     verifyUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    studentList,
+    studentTopEvidenceList
 }

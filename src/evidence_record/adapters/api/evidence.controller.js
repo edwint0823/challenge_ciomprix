@@ -21,7 +21,26 @@ const uploadEvidence = async (req, res, next) => {
         res.send(r)
     }).catch((err) => next(err))
 }
+const evidenceList = (req, res, next) => {
+    useCase.evidenceList(req.user).then((r) => {
+        res.send(r)
+    }).catch((err) => next(err))
+}
 
+const evidenceListOrdered = (req, res, next) => {
+    useCase.evidenceListOrdered().then((r) => {
+        res.send(r)
+    }).catch((err) => next(err))
+}
+
+const percentEvidenceByFormat = (req, res, next) => {
+    useCase.percentEvidenceByFormat().then((r) => {
+        res.send(r)
+    }).catch((err) => next(err))
+}
 module.exports = {
     uploadEvidence,
+    evidenceList,
+    evidenceListOrdered,
+    percentEvidenceByFormat
 }
