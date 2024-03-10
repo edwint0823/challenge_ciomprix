@@ -52,7 +52,8 @@ const successMessages = {
     userCreated: 'Usuario creado exitosamente',
     studentLinked: 'El estudiante ha sido registrado en la(s) asignatura(s) proporcionadas',
     subjectCreated: 'La asignatura se creado correctamente',
-    evidenceUploaded: 'Se registro la evidencia de la asignatura exitosamente'
+    evidenceUploaded: 'Se registro la evidencia de la asignatura exitosamente',
+    userUpdated: 'El usuario fue actualizado correctamente'
 }
 const errorMessages = {
     validationErrors: 'errores de validación',
@@ -66,7 +67,8 @@ const errorMessages = {
     subjectsNotFound: 'Alguna(s) asignaturas no existen',
     fileTypeNotAllowed: 'Tipo de archivo no admitido',
     subjectNotFoundOrStudentNotLinked: 'La asignatura proporciona no existe o el estudiante no esta matriculado en dicha asignatura',
-    maxEvidencesUploaded: 'El estudiante ya ha subido el máximo de evidencias para la asignatura proporcionada'
+    maxEvidencesUploaded: 'El estudiante ya ha subido el máximo de evidencias para la asignatura proporcionada',
+    userNotFound: 'El usuario no existe'
 }
 const validationMessages = {
     userCreate: {
@@ -113,7 +115,25 @@ const validationMessages = {
         subjectIdValid: 'El id de la asignatura no es valido',
         fileRequired: 'El archivo de evidencia es requerido',
         fileFormat: 'El archivo de evidencia debe ser de tipo .png, .jpg o .pdf'
-    }
+    },
+    userUpdate: {
+        firstNameMinLength: 'El nuevo nombre debe tener al menos 2 caracteres',
+        firstNameRequired: 'El nuevo nombre es requerido',
+        lastNameMinLength: 'El nuevo apellido debe tener al menos 2 caracteres',
+        lastNameRequired: 'El nuevo apellido es requerido',
+        passwordLength: 'La nueva contraseña debe tener al menos 6 caracteres',
+        passwordRequired: 'La nueva contraseña es requerida',
+        dniNumber: 'El nuevo DNI debe ser numérico',
+        dniRequired: 'El nuevo DNI es requerido',
+        phoneNumberValid: 'El nuevo número de teléfono no es válido',
+        phoneNumberRequired: 'El nuevo número de teléfono es requerido',
+        birthDateValid: 'La nueva fecha de nacimiento no es válida',
+        birthDateRequired: 'La nueva fecha de nacimiento es requerida',
+        isAdminValid: 'is_admin debe ser un booleano',
+        isAdminRequired: 'is_admin es requerido',
+        isStudentValid: 'is_student debe ser un booleano',
+        isStudentRequired: 'is_student es requerido'
+    },
 }
 const tokenTImeExpiration = '5m'
 const validEvidenceFileFormat = ['image/png', 'image/jpeg', 'application/pdf']

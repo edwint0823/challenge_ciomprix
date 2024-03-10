@@ -28,8 +28,13 @@ const findUserById = async (id) => {
     })
 }
 
+const updateUserById = async (id, userData) => {
+    return User.update({...userData}, {where: {id: id}})
+}
+
 module.exports = {
     createUser,
     findUserByEmail,
-    findUserById
+    findUserById,
+    updateUserById
 }
