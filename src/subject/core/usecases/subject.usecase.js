@@ -64,8 +64,17 @@ const subjectList = async (loggedUser) => {
         throw throwError(e, e.statusCode || HttpStatus.INTERNAL_SERVER_ERROR, 'Error interno del servidor');
     }
 }
+
+const subjectEvidenceList = async () => {
+    try {
+        return await subjectRepository.getSubjectEvidenceList()
+    } catch (e) {
+        throw throwError(e, e.statusCode || HttpStatus.INTERNAL_SERVER_ERROR, 'Error interno del servidor');
+    }
+}
 module.exports = {
     linkStudent,
     createSubject,
-    subjectList
+    subjectList,
+    subjectEvidenceList
 }

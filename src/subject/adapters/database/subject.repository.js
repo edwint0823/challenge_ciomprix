@@ -1,5 +1,5 @@
 const {Op} = require("sequelize");
-const {Subject, User} = require('../../../../database/models')
+const {Subject, User, Evidence_Record} = require('../../../../database/models')
 const getSubjectsByIds = async (ids) => {
     return Subject.findAll({
         attributes: ['name'],
@@ -34,9 +34,18 @@ const getSubjectList = async (whereOptions) => {
         order: [['name', 'ASC']]
     })
 }
-
+const getSubjectEvidenceList = async () => {
+    return Subject.findAll({
+        include: [
+            {
+                model: Evidence_Record,
+            }
+        ]
+    })
+}
 module.exports = {
     getSubjectsByIds,
     createSubject,
-    getSubjectList
+    getSubjectList,
+    getSubjectEvidenceList
 }
