@@ -9,7 +9,9 @@ module.exports = (sequelize, DataTypes) => {
                 through: models.User_Subject,
                 foreignKey: 'user_id'
             });
-            User.belongsToMany(models.Evidence_Record, {through: 'evidence_records', foreignKey: 'user_id'})
+            User.hasMany(models.Evidence_Record, {
+                foreignKey: 'user_id'
+            });
         }
     }
 

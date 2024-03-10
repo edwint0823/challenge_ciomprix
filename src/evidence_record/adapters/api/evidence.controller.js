@@ -21,7 +21,12 @@ const uploadEvidence = async (req, res, next) => {
         res.send(r)
     }).catch((err) => next(err))
 }
-
+const evidenceList = (req, res, next) => {
+    useCase.evidenceList(req.user).then((r) => {
+        res.send(r)
+    }).catch((err) => next(err))
+}
 module.exports = {
     uploadEvidence,
+    evidenceList,
 }
