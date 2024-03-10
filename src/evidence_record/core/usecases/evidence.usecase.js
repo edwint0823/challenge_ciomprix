@@ -40,7 +40,16 @@ const evidenceList = async (loggedUser) => {
     }
 }
 
+const evidenceListOrdered = async () => {
+    try {
+        return await evidenceRecordRepository.getEvidenceListOrdered()
+    } catch (e) {
+        throw throwError(e, e.statusCode || HttpStatus.INTERNAL_SERVER_ERROR, 'Error interno del servidor');
+    }
+}
+
 module.exports = {
     uploadEvidence,
-    evidenceList
+    evidenceList,
+    evidenceListOrdered
 }

@@ -28,8 +28,21 @@ const getEvidenceList = async (whereOptions) => {
         ],
     })
 }
+
+const getEvidenceListOrdered = async () => {
+    return Evidence_Record.findAll({
+        include: [
+            {
+                model: User,
+                attributes: ['first_name', 'last_name', 'email']
+            }
+        ],
+        order: [[User, 'email', 'ASC'], ['createdAt', 'ASC']]
+    })
+}
 module.exports = {
     getEvidencesByUserIdAndSubjectId,
     create,
-    getEvidenceList
+    getEvidenceList,
+    getEvidenceListOrdered
 }

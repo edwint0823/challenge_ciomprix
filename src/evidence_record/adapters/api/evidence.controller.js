@@ -26,7 +26,14 @@ const evidenceList = (req, res, next) => {
         res.send(r)
     }).catch((err) => next(err))
 }
+
+const evidenceListOrdered = (req, res, next) => {
+    useCase.evidenceListOrdered().then((r) => {
+        res.send(r)
+    }).catch((err) => next(err))
+}
 module.exports = {
     uploadEvidence,
     evidenceList,
+    evidenceListOrdered
 }
