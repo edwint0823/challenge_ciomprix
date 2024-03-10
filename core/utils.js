@@ -15,17 +15,6 @@ const throwError = (err, statusCode, message) => {
     return createError(statusCode, messageReturn);
 };
 
-const customLogger = (req, res, next) => {
-    const logDirectory = path.join(__dirname, '../', 'log');
-    const logEntry = `${req.ip} | ${req.method} ${req.originalUrl} | ${res.statusCode} | ${req.user || '-'} | ${new Date().toISOString()}`;
-    fs.appendFile(path.join(logDirectory, 'access.log'), logEntry + '\n', (err) => {
-        if (err) {
-            console.error('Error al escribir en el archivo de registro:', err);
-        }
-    });
-    next();
-}
-
 const generateJWT = (payload, expired) => {
     return new Promise((resolve, reject) => {
         jwt.sign(payload, process.env.SECRETKEY, {
@@ -40,8 +29,12 @@ const generateJWT = (payload, expired) => {
         })
     })
 }
+
+const verifyJWT = (token) => {
+    return jwt.verify(token, process.env.SECRETKEY)
+}
 module.exports = {
     throwError,
-    customLogger,
-    generateJWT
+    generateJWT,
+    verifyJWT
 };

@@ -14,8 +14,6 @@ const logger = require('morgan');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./docs/swagger.json');
 
-const {customLogger} = require('./core/utils')
-
 const logDirectory = path.join(__dirname, 'log');
 if (!fs.existsSync(logDirectory)) {
     fs.mkdirSync(logDirectory);
@@ -32,7 +30,21 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(cors());
-app.use(logger('combined', {stream: accessLogStream}));
+app.use(logger((tokens, req, res) => {
+    let user = ' - '
+    if (req.user !== undefined && req.user.first_name) {
+        user = JSON.stringify(req.user)
+    }
+    return [
+        req.ip,
+        tokens.method(req, res),
+        tokens.url(req, res),
+        tokens.status(req, res),
+        user,
+        new Date().toISOString()
+    ].join(' ')
+}, {stream: accessLogStream}));
+
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
@@ -57,5 +69,4 @@ app.use(function (err, req, res, next) {
     res.locals.error = req.app.get('env') === 'development' ? err : {};
     res.status(err.statusCode || 500).json({message: err.message})
 });
-app.use(customLogger);
 module.exports = app;
