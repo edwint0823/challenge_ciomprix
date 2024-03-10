@@ -4,10 +4,28 @@
     "title": "Documentación de la API de challenge Ciomprix",
     "version": "1.0.0"
   },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
   "tags": [
     {
       "name": "users",
       "description": "Operaciones relacionadas con los usuarios"
+    },
+    {
+      "name": "subjects",
+      "description": "Operaciones relacionadas con las asignaturas"
     }
   ],
   "paths": {
@@ -115,10 +133,107 @@
         },
         "responses": {
           "200": {
-            "description": "Usuario registrado exitosamente."
+            "description": "Se ha iniciado sesión exitosamente."
           },
           "400": {
             "description": "Error en la solicitud, revisa los datos enviados."
+          },
+          "500": {
+            "description": "Error interno del servidor."
+          }
+        }
+      }
+    },
+    "/api/subjects/link-student-to-subject": {
+      "post": {
+        "tags": [
+          "subjects"
+        ],
+        "summary": "Vincular estudiante",
+        "description": "Vincular un estudiante a una asignatura",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "student_id": {
+                    "type": "number",
+                    "description": "Id del estudiante a vincular."
+                  },
+                  "subjects_id": {
+                    "type": "array",
+                    "example": [
+                      1,
+                      2,
+                      3
+                    ],
+                    "description": "Ids de las asignaturas "
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Estudiante vinculado exitosamente."
+          },
+          "400": {
+            "description": "Error en la solicitud, revisa los datos enviados."
+          },
+          "401": {
+            "description": "Error de autenticación , verificar token."
+          },
+          "500": {
+            "description": "Error interno del servidor."
+          }
+        }
+      }
+    },
+    "/api/subjects/create": {
+      "post": {
+        "tags": [
+          "subjects"
+        ],
+        "summary": "Crear asignatura",
+        "description": "Crear una asignatura",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Nombre de la asignatura."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Asignatura creada exitosamente."
+          },
+          "400": {
+            "description": "Error en la solicitud, revisa los datos enviados."
+          },
+          "401": {
+            "description": "Error de autenticación , verificar token."
           },
           "500": {
             "description": "Error interno del servidor."

@@ -16,7 +16,20 @@ const findUserByEmail = async (email) => {
     )
 }
 
+const findUserById = async (id) => {
+    return User.findOne({
+        attributes: {
+            exclude: ['createdAt', 'updatedAt', 'dni', 'phone_number', 'birth_date']
+        },
+        where: {
+            id: id
+        },
+        raw: true
+    })
+}
+
 module.exports = {
     createUser,
-    findUserByEmail
+    findUserByEmail,
+    findUserById
 }
