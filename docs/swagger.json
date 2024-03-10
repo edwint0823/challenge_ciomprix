@@ -30,6 +30,10 @@
     {
       "name": "evidences",
       "description": "Operaciones relacionadas con las evidencias"
+    },
+    {
+      "name": "logs",
+      "description": "Operaciones relacionadas con el archivo de logs"
     }
   ],
   "paths": {
@@ -581,6 +585,31 @@
         "responses": {
           "200": {
             "description": "Listado de formatos y su porcentaje."
+          },
+          "401": {
+            "description": "Error de autenticación , verificar token."
+          },
+          "500": {
+            "description": "Error interno del servidor."
+          }
+        }
+      }
+    },
+    "/api/logs/last-ten-messages": {
+      "get": {
+        "tags": [
+          "logs"
+        ],
+        "summary": "Listado de los últimos diez mensajes en el archivo de logs",
+        "description": "Permite obtener el listado de los últimos diez mensajes en el archivo de logs.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Listado de logs."
           },
           "401": {
             "description": "Error de autenticación , verificar token."
