@@ -1,0 +1,624 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Documentación de la API de challenge Ciomprix",
+    "version": "1.0.0"
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "users",
+      "description": "Operaciones relacionadas con los usuarios"
+    },
+    {
+      "name": "subjects",
+      "description": "Operaciones relacionadas con las asignaturas"
+    },
+    {
+      "name": "evidences",
+      "description": "Operaciones relacionadas con las evidencias"
+    },
+    {
+      "name": "logs",
+      "description": "Operaciones relacionadas con el archivo de logs"
+    }
+  ],
+  "paths": {
+    "/api/users/register": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Registro de nuevos usuarios",
+        "description": "Permite registrar nuevos usuarios en el sistema.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "first_name": {
+                    "type": "string",
+                    "description": "El nombre del usuario."
+                  },
+                  "last_name": {
+                    "type": "string",
+                    "description": "El apellido del usuario."
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "La dirección de correo electrónico del usuario."
+                  },
+                  "password": {
+                    "type": "string",
+                    "format": "password",
+                    "description": "La contraseña del usuario."
+                  },
+                  "is_admin": {
+                    "type": "boolean",
+                    "description": "Indica si el usuario es administrador o no."
+                  },
+                  "is_student": {
+                    "type": "boolean",
+                    "description": "Indica si el usuario es estudiante o no."
+                  },
+                  "dni": {
+                    "type": "string",
+                    "example": 123456789,
+                    "description": "El número de identificación del usuario (DNI)."
+                  },
+                  "phone_number": {
+                    "type": "string",
+                    "example": 3012345678,
+                    "description": "El número de teléfono del usuario."
+                  },
+                  "birth_date": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "La fecha de nacimiento del usuario en el formato YYYY-MM-DD."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Usuario registrado exitosamente."
+          },
+          "400": {
+            "description": "Error en la solicitud, revisa los datos enviados."
+          },
+          "500": {
+            "description": "Error interno del servidor."
+          }
+        }
+      }
+    },
+    "/api/users/login": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Iniciar sesión",
+        "description": "Permite iniciar sesión a los usuarios registrados.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "La dirección de correo electrónico del usuario."
+                  },
+                  "password": {
+                    "type": "string",
+                    "format": "password",
+                    "description": "La contraseña del usuario."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Se ha iniciado sesión exitosamente."
+          },
+          "400": {
+            "description": "Error en la solicitud, revisa los datos enviados."
+          },
+          "500": {
+            "description": "Error interno del servidor."
+          }
+        }
+      }
+    },
+    "/api/users/update/{userId}": {
+      "parameters": [
+        {
+          "name": "userId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          },
+          "description": "ID del usuario a actualizar"
+        }
+      ],
+      "patch": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Actualizar información del usuario",
+        "description": "Permite actualizar la información del usuario.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "first_name": {
+                    "type": "string",
+                    "description": "El nuevo nombre del usuario."
+                  },
+                  "last_name": {
+                    "type": "string",
+                    "description": "El nuevo apellido del usuario."
+                  },
+                  "dni": {
+                    "type": "string",
+                    "description": "El nuevo DNI del usuario."
+                  },
+                  "phone_number": {
+                    "type": "string",
+                    "description": "El nuevo número de teléfono del usuario."
+                  },
+                  "birth_date": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "La nueva fecha de nacimiento del usuario en formato YYYY-MM-DD."
+                  },
+                  "password": {
+                    "type": "string",
+                    "format": "password",
+                    "description": "La nueva contraseña del usuario."
+                  },
+                  "is_admin": {
+                    "type": "boolean",
+                    "description": "Indica si el usuario es administrador o no."
+                  },
+                  "is_student": {
+                    "type": "boolean",
+                    "description": "Indica si el usuario es estudiante o no."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Información del usuario actualizada correctamente."
+          },
+          "400": {
+            "description": "Error en la solicitud, revisa los datos enviados."
+          },
+          "401": {
+            "description": "Error de autenticación , verificar token."
+          },
+          "404": {
+            "description": "Usuario no encontrado."
+          },
+          "500": {
+            "description": "Error interno del servidor."
+          }
+        }
+      }
+    },
+    "/api/users/delete/{userId}": {
+      "parameters": [
+        {
+          "name": "userId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          },
+          "description": "ID del usuario a borrar"
+        }
+      ],
+      "delete": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Borrar usuario",
+        "description": "Permite borrar la información del usuario.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Información del usuario borrada correctamente."
+          },
+          "401": {
+            "description": "Error de autenticación , verificar token."
+          },
+          "404": {
+            "description": "Usuario no encontrado."
+          },
+          "500": {
+            "description": "Error interno del servidor."
+          }
+        }
+      }
+    },
+    "/api/users/student-list": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Listado de estudiantes",
+        "description": "Permite obtener el listado de estudiantes.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Listado de asignaturas."
+          },
+          "401": {
+            "description": "Error de autenticación , verificar token."
+          },
+          "500": {
+            "description": "Error interno del servidor."
+          }
+        }
+      }
+    },
+    "/api/users/student-evidence-top": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Top 5 de estudiantes ",
+        "description": "Permite obtener el listado de lost 5 estudiantes con mas evidencias registradas.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Listado de estudiantes."
+          },
+          "401": {
+            "description": "Error de autenticación , verificar token."
+          },
+          "500": {
+            "description": "Error interno del servidor."
+          }
+        }
+      }
+    },
+    "/api/subjects/link-student-to-subject": {
+      "post": {
+        "tags": [
+          "subjects"
+        ],
+        "summary": "Vincular estudiante",
+        "description": "Vincular un estudiante a una asignatura",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "student_id": {
+                    "type": "number",
+                    "description": "Id del estudiante a vincular."
+                  },
+                  "subjects_id": {
+                    "type": "array",
+                    "example": [
+                      1,
+                      2,
+                      3
+                    ],
+                    "description": "Ids de las asignaturas "
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Estudiante vinculado exitosamente."
+          },
+          "400": {
+            "description": "Error en la solicitud, revisa los datos enviados."
+          },
+          "401": {
+            "description": "Error de autenticación , verificar token."
+          },
+          "500": {
+            "description": "Error interno del servidor."
+          }
+        }
+      }
+    },
+    "/api/subjects/list": {
+      "get": {
+        "tags": [
+          "subjects"
+        ],
+        "summary": "Listado de las asignaturas",
+        "description": "Permite obtener el listado de asignaturas matriculas en caso de ser estudiante.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Listado de asignaturas."
+          },
+          "401": {
+            "description": "Error de autenticación , verificar token."
+          },
+          "500": {
+            "description": "Error interno del servidor."
+          }
+        }
+      }
+    },
+    "/api/subjects/evidence-list": {
+      "get": {
+        "tags": [
+          "subjects"
+        ],
+        "summary": "Listado de las evidencias por asignaturas",
+        "description": "Permite obtener el listado de evidencias por asignaturas.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Listado de asignaturas y sus evidencias."
+          },
+          "401": {
+            "description": "Error de autenticación , verificar token."
+          },
+          "500": {
+            "description": "Error interno del servidor."
+          }
+        }
+      }
+    },
+    "/api/subjects/create": {
+      "post": {
+        "tags": [
+          "subjects"
+        ],
+        "summary": "Crear asignatura",
+        "description": "Crear una asignatura",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Nombre de la asignatura."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Asignatura creada exitosamente."
+          },
+          "400": {
+            "description": "Error en la solicitud, revisa los datos enviados."
+          },
+          "401": {
+            "description": "Error de autenticación , verificar token."
+          },
+          "500": {
+            "description": "Error interno del servidor."
+          }
+        }
+      }
+    },
+    "/api/evidences/upload": {
+      "post": {
+        "tags": [
+          "evidences"
+        ],
+        "summary": "Subir evidencia de una asignatura",
+        "description": "Permite registrar una evidencia del usuario logueado (tipo estudiante) a una asignatura.",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "El archivo a subir."
+                  },
+                  "subject_id": {
+                    "type": "number",
+                    "description": "Id de la asignatura."
+                  }
+                },
+                "required": [
+                  "file",
+                  "subject_id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Archivo subido correctamente."
+          },
+          "400": {
+            "description": "Error en la solicitud, revisa los datos enviados."
+          },
+          "500": {
+            "description": "Error interno del servidor."
+          }
+        }
+      }
+    },
+    "/api/evidences/list": {
+      "get": {
+        "tags": [
+          "evidences"
+        ],
+        "summary": "Listado de evidencias",
+        "description": "Permite obtener el listado de evidencias subidas por el estudiante en caso de ser estudiante.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Listado de evidencias."
+          },
+          "401": {
+            "description": "Error de autenticación , verificar token."
+          },
+          "500": {
+            "description": "Error interno del servidor."
+          }
+        }
+      }
+    },
+    "/api/evidences/list-ordered": {
+      "get": {
+        "tags": [
+          "evidences"
+        ],
+        "summary": "Listado de evidencias ordenadas",
+        "description": "Permite obtener el listado de evidencias subidas por los estudiantes ordenado por correo del estudiante.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Listado de evidencias."
+          },
+          "401": {
+            "description": "Error de autenticación , verificar token."
+          },
+          "500": {
+            "description": "Error interno del servidor."
+          }
+        }
+      }
+    },
+    "/api/evidences/percent-by-format": {
+      "get": {
+        "tags": [
+          "evidences"
+        ],
+        "summary": "Listado de porcentaje de evidencias clasificadas por tipo de archivo",
+        "description": "Permite obtener el listado de porcentaje de evidencias clasificadas por tipo de archivo.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Listado de formatos y su porcentaje."
+          },
+          "401": {
+            "description": "Error de autenticación , verificar token."
+          },
+          "500": {
+            "description": "Error interno del servidor."
+          }
+        }
+      }
+    },
+    "/api/logs/last-ten-messages": {
+      "get": {
+        "tags": [
+          "logs"
+        ],
+        "summary": "Listado de los últimos diez mensajes en el archivo de logs",
+        "description": "Permite obtener el listado de los últimos diez mensajes en el archivo de logs.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Listado de logs."
+          },
+          "401": {
+            "description": "Error de autenticación , verificar token."
+          },
+          "500": {
+            "description": "Error interno del servidor."
+          }
+        }
+      }
+    }
+  }
+}
