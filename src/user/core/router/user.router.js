@@ -6,4 +6,5 @@ const isAdmin = require('../../../../middleware/isAdmin.middleware')
 router.post('/register', userController.createUser)
 router.get('/login', userController.loginUser)
 router.patch('/update/:userId', [auth, isAdmin], userController.updateUser)
+router.delete('/delete/:userId', [auth, isAdmin], userController.deleteUser)
 module.exports = router

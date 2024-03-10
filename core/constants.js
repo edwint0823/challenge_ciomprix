@@ -53,7 +53,8 @@ const successMessages = {
     studentLinked: 'El estudiante ha sido registrado en la(s) asignatura(s) proporcionadas',
     subjectCreated: 'La asignatura se creado correctamente',
     evidenceUploaded: 'Se registro la evidencia de la asignatura exitosamente',
-    userUpdated: 'El usuario fue actualizado correctamente'
+    userUpdated: 'El usuario fue actualizado correctamente',
+    userDeleted: 'El usuario fue borrado correctamente',
 }
 const errorMessages = {
     validationErrors: 'errores de validación',
@@ -68,7 +69,8 @@ const errorMessages = {
     fileTypeNotAllowed: 'Tipo de archivo no admitido',
     subjectNotFoundOrStudentNotLinked: 'La asignatura proporciona no existe o el estudiante no esta matriculado en dicha asignatura',
     maxEvidencesUploaded: 'El estudiante ya ha subido el máximo de evidencias para la asignatura proporcionada',
-    userNotFound: 'El usuario no existe'
+    userNotFound: 'El usuario no existe',
+    deleteHimSelf: 'No se puede borrar a si mismo'
 }
 const validationMessages = {
     userCreate: {

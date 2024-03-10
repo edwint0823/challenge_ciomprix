@@ -47,9 +47,16 @@ const updateUser = async (req, res, next) => {
     }).catch((err) => next(err))
 }
 
+const deleteUser = async (req, res, next) => {
+    useCase.deleteUser(req.params.userId, req.user).then((r) => {
+        res.send(r)
+    }).catch((err) => next(err))
+}
+
 
 module.exports = {
     createUser,
     loginUser,
-    updateUser
+    updateUser,
+    deleteUser
 }

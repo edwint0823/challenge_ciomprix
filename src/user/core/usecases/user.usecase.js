@@ -70,8 +70,25 @@ const updateUser = async (userId, userData) => {
         throw throwError(e, e.statusCode || HttpStatus.INTERNAL_SERVER_ERROR, 'Error interno del servidor');
     }
 }
+
+const deleteUser = async (userId, loggedUser) => {
+    try {
+        if (userId === loggedUser.id) {
+            throw createHttpError(HttpStatus.BAD_REQUEST, errorMessages.deleteHimSelf)
+        }
+        const user = repository.findUserById(userId)
+        if (user === null) {
+            throw createHttpError(HttpStatus.NOT_FOUND, errorMessages.userNotFound)
+        }
+        await repository.deleteUser(userId)
+        return {message: successMessages.userDeleted}
+    } catch (e) {
+        throw throwError(e, e.statusCode || HttpStatus.INTERNAL_SERVER_ERROR, 'Error interno del servidor');
+    }
+}
 module.exports = {
     createUser,
     verifyUser,
-    updateUser
+    updateUser,
+    deleteUser
 }

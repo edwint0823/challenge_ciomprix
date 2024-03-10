@@ -32,9 +32,14 @@ const updateUserById = async (id, userData) => {
     return User.update({...userData}, {where: {id: id}})
 }
 
+const deleteUser = async (id) => {
+    return User.destroy({where: {id: id}})
+}
+
 module.exports = {
     createUser,
     findUserByEmail,
     findUserById,
-    updateUserById
+    updateUserById,
+    deleteUser
 }
