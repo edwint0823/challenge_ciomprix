@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require("fs");
 const createError = require("http-errors");
 const jwt = require("jsonwebtoken");
 const dotEnvPath = path.resolve('.env')
@@ -33,8 +34,13 @@ const generateJWT = (payload, expired) => {
 const verifyJWT = (token) => {
     return jwt.verify(token, process.env.SECRETKEY)
 }
+
+const deleteFile = (path) => {
+    return fs.unlinkSync(path)
+}
 module.exports = {
     throwError,
     generateJWT,
-    verifyJWT
+    verifyJWT,
+    deleteFile
 };
