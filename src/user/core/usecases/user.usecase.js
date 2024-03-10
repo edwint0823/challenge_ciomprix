@@ -95,10 +95,19 @@ const studentList = async () => {
     }
 }
 
+const studentTopEvidenceList = async () => {
+    try {
+        return await repository.getStudentTopEvidenceList()
+    } catch (e) {
+        throw throwError(e, e.statusCode || HttpStatus.INTERNAL_SERVER_ERROR, 'Error interno del servidor');
+    }
+}
+
 module.exports = {
     createUser,
     verifyUser,
     updateUser,
     deleteUser,
-    studentList
+    studentList,
+    studentTopEvidenceList
 }
