@@ -53,10 +53,17 @@ const deleteUser = async (req, res, next) => {
     }).catch((err) => next(err))
 }
 
+const studentList = async (req, res, next) => {
+    useCase.studentList().then((r) => {
+        res.send(r)
+    }).catch((err) => next(err))
+}
+
 
 module.exports = {
     createUser,
     loginUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    studentList
 }

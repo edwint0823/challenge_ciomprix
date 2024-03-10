@@ -36,10 +36,22 @@ const deleteUser = async (id) => {
     return User.destroy({where: {id: id}})
 }
 
+const getStudentList = async () => {
+    return User.findAll({
+        attributes: {
+            exclude: ['password']
+        },
+        where: {
+            is_student: true,
+        },
+        order: [['last_name', 'DESC']]
+    })
+}
 module.exports = {
     createUser,
     findUserByEmail,
     findUserById,
     updateUserById,
-    deleteUser
+    deleteUser,
+    getStudentList
 }
