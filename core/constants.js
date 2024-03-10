@@ -51,7 +51,8 @@ const HttpStatus = {
 const successMessages = {
     userCreated: 'Usuario creado exitosamente',
     studentLinked: 'El estudiante ha sido registrado en la(s) asignatura(s) proporcionadas',
-    subjectCreated: 'La asignatura se creado correctamente'
+    subjectCreated: 'La asignatura se creado correctamente',
+    evidenceUploaded: 'Se registro la evidencia de la asignatura exitosamente'
 }
 const errorMessages = {
     validationErrors: 'errores de validación',
@@ -62,7 +63,10 @@ const errorMessages = {
     isNotStudent: 'El usuario no es un estudiante',
     studentMaxSubjectsLinked: 'El estudiante supera el limite máximo de asignaturas ',
     studentAlreadyLinked: 'El estudiante ya ha sido matriculado en algunas de las asignaturas proporcionadas',
-    subjectsNotFound: 'Alguna(s) asignaturas no existen'
+    subjectsNotFound: 'Alguna(s) asignaturas no existen',
+    fileTypeNotAllowed: 'Tipo de archivo no admitido',
+    subjectNotFoundOrStudentNotLinked: 'La asignatura proporciona no existe o el estudiante no esta matriculado en dicha asignatura',
+    maxEvidencesUploaded: 'El estudiante ya ha subido el máximo de evidencias para la asignatura proporcionada'
 }
 const validationMessages = {
     userCreate: {
@@ -103,13 +107,21 @@ const validationMessages = {
     createSubject: {
         nameRequired: 'El nombre de la asignatura es requerido',
         nameLength: 'El nombre de la asignatura debe tener al menos 2 caracteres'
+    },
+    evidenceUpload: {
+        subjectIdRequired: 'El id de la asignatura es requerido',
+        subjectIdValid: 'El id de la asignatura no es valido',
+        fileRequired: 'El archivo de evidencia es requerido',
+        fileFormat: 'El archivo de evidencia debe ser de tipo .png, .jpg o .pdf'
     }
 }
 const tokenTImeExpiration = '5m'
+const validEvidenceFileFormat = ['image/png', 'image/jpeg', 'application/pdf']
 module.exports = {
     HttpStatus,
     successMessages,
     validationMessages,
     errorMessages,
-    tokenTImeExpiration
+    tokenTImeExpiration,
+    validEvidenceFileFormat
 }

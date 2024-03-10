@@ -26,6 +26,10 @@
     {
       "name": "subjects",
       "description": "Operaciones relacionadas con las asignaturas"
+    },
+    {
+      "name": "evidences",
+      "description": "Operaciones relacionadas con las evidencias"
     }
   ],
   "paths": {
@@ -234,6 +238,50 @@
           },
           "401": {
             "description": "Error de autenticación , verificar token."
+          },
+          "500": {
+            "description": "Error interno del servidor."
+          }
+        }
+      }
+    },
+    "/api/evidences/upload": {
+      "post": {
+        "tags": [
+          "evidences"
+        ],
+        "summary": "Subir evidencia de una asignatura",
+        "description": "Permite registrar una evidencia del usuario logueado (tipo estudiante) a una asignatura.",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "El archivo a subir."
+                  },
+                  "subject_id": {
+                    "type": "number",
+                    "description": "Id de la asignatura."
+                  }
+                },
+                "required": [
+                  "file",
+                  "subject_id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Archivo subido correctamente."
+          },
+          "400": {
+            "description": "Error en la solicitud, revisa los datos enviados."
           },
           "500": {
             "description": "Error interno del servidor."
